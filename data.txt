@@ -1,0 +1,11 @@
+Python is a high-level programming language.
+It is known for its readability and simplicity.
+Python supports multiple programming paradigms.
+It has a large and comprehensive standard library.
+Many developers love Python for its versatility.
+Data analysis and machine learning are popular Python applications.
+Web development is also common with frameworks like Django and Flask.
+Python was created by Guido van Rossum in the late 1980s.
+Its design philosophy emphasizes code readability.
+The name Python comes from the British comedy group Monty Python.
+1 2 3 4 5 6 
