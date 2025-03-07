@@ -1,0 +1,20 @@
+[
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "year": 2018,
+        "mileage": 55000
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "year": 2020,
+        "mileage": 35000
+    },
+    {
+        "brand": "Ford",
+        "model": "Focus",
+        "year": 2019,
+        "mileage": 45000
+    }
+]
