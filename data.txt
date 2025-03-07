@@ -1,0 +1,5 @@
+Python is a powerful programming language.
+It is widely used in web development, data science, and automation.
+
+File handling is an important skill in Python.
+This exercise helps you practice reading files and counting words.
