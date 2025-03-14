@@ -24,6 +24,28 @@ class BookScraper:
         for title in book_titles:
             print(title)
 
+    def extract_all_books(self):
+        """Task 3: Navigate through pages of the book catalog and extract book titles."""
+        base_catalog_url = self.base_url + "catalogue/page-{}.html"
+        page = 1
+        all_books = []
+
+        while True:
+            url = base_catalog_url.format(page)
+            response = requests.get(url)
+
+            if response.status_code != 200:
+                break
+
+            soup = BeautifulSoup(response.text, "html.parser")
+            books = [book.get_text(strip=True) for book in soup.select("h3 a")]
+            all_books.extend(books)
+
+            print(f"Scraped Page {page} with {len(books)} books")
+            page += 1
+
+        print("\nTotal Books Scraped:", len(all_books))
+
 
 if __name__ == '__main__':
     scraper = BookScraper()
@@ -33,4 +55,7 @@ if __name__ == '__main__':
 
     print("\n--- Task 2: Extract Book Titles ---")
     scraper.extract_book_titles()
+
+    print("\n--- Task 3: Extract All Books ---")
+    scraper.extract_all_books()
 
