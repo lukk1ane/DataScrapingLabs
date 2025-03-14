@@ -37,7 +37,7 @@ def task_3():
         response = requests.get(url)
 
         if response.status_code != 200:
-            break  # Stop if page doesn't exist
+            break  
 
         soup = BeautifulSoup(response.text, "html.parser")
         books = soup.select("h3 a")
@@ -56,16 +56,13 @@ def task_3():
 def task_4():
     url = "http://books.toscrape.com/"
 
-    # GET Request
     response_get = requests.get(url)
     print("Task 4 - GET Response Code:", response_get.status_code)
 
-    # HEAD Request
     response_head = requests.head(url)
     print("HEAD Response Code:", response_head.status_code)
     print("HEAD Response Headers:", response_head.headers)
 
-    # POST Request (Usually requires a form submission, so it might not work on this site)
     response_post = requests.post(url, data={"key": "value"})
     print("POST Response Code:", response_post.status_code)
     print("\n" + "="*50 + "\n")
@@ -74,21 +71,18 @@ def task_4():
 def task_5():
     ssl_url = "https://www.google.com"
 
-    # Verify SSL certificate
     try:
         response = requests.get(ssl_url, verify=True)
         print("Task 5 - SSL Verification: SUCCESS")
     except requests.exceptions.SSLError:
         print("SSL Verification: FAILED")
 
-    # Disable SSL Verification
     try:
         response = requests.get(ssl_url, verify=False)
         print("SSL Verification Disabled: Request Successful")
     except requests.exceptions.SSLError:
         print("SSL Verification Disabled: FAILED")
 
-    # Retrieve SSL certificate information
     def get_ssl_info(hostname):
         context = ssl.create_default_context()
         with socket.create_connection((hostname, 443)) as sock:
