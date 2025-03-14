@@ -14,10 +14,23 @@ class BookScraper:
         print("Status Code:", response.status_code)
         print("Response Headers:", response.headers)
 
+    def extract_book_titles(self):
+        """Task 2: Extract all book titles from the homepage."""
+        response = requests.get(self.base_url)
+        soup = BeautifulSoup(response.text, "html.parser")
+        book_titles = [book.get_text(strip=True) for book in soup.select("h3 a")]
+
+        print("Book Titles on Homepage:")
+        for title in book_titles:
+            print(title)
+
 
 if __name__ == '__main__':
-    # Instantiate the class and call methods
     scraper = BookScraper()
 
     print("\n--- Task 1: GET Status & Headers ---")
     scraper.get_status_and_headers()
+
+    print("\n--- Task 2: Extract Book Titles ---")
+    scraper.extract_book_titles()
+
