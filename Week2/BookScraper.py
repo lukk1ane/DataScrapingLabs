@@ -46,6 +46,20 @@ class BookScraper:
 
         print("\nTotal Books Scraped:", len(all_books))
 
+    def demonstrate_http_methods(self):
+        """Task 4: Demonstrate different HTTP methods."""
+        # GET request
+        response_get = requests.get(self.base_url)
+        print("GET Response:", response_get.status_code)
+
+        # HEAD request (only headers)
+        response_head = requests.head(self.base_url)
+        print("HEAD Response Headers:", response_head.headers)
+
+        # POST request (just a simulation)
+        response_post = requests.post(self.base_url, data={"key": "value"})
+        print("POST Response:", response_post.status_code)
+
 
 if __name__ == '__main__':
     scraper = BookScraper()
@@ -59,3 +73,5 @@ if __name__ == '__main__':
     print("\n--- Task 3: Extract All Books ---")
     scraper.extract_all_books()
 
+    print("\n--- Task 4: Demonstrate HTTP Methods ---")
+    scraper.demonstrate_http_methods()
