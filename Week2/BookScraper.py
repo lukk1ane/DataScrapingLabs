@@ -60,6 +60,31 @@ class BookScraper:
         response_post = requests.post(self.base_url, data={"key": "value"})
         print("POST Response:", response_post.status_code)
 
+    def check_ssl_certificate(self):
+        """Task 5: Verify SSL certificate validity."""
+        domain = "books.toscrape.com"
+        try:
+            context = ssl.create_default_context()
+            with socket.create_connection((domain, 443)) as sock:
+                with context.wrap_socket(sock, server_hostname=domain) as ssock:
+                    cert = ssock.getpeercert()
+                    print("SSL Certificate is valid.")
+                    print("Issuer:", cert.get("issuer"))
+                    print("Valid from:", cert.get("notBefore"))
+                    print("Valid until:", cert.get("notAfter"))
+        except Exception as e:
+            print("SSL verification failed:", e)
+
+    def disable_ssl_verification(self):
+        """Demonstrate what happens when SSL verification is disabled."""
+        url = "https://books.toscrape.com/"
+
+        try:
+            response = requests.get(url, verify=False)
+            print("SSL verification disabled. Response received.")
+        except requests.exceptions.SSLError as e:
+            print("SSL error:", e)
+
 
 if __name__ == '__main__':
     scraper = BookScraper()
@@ -75,3 +100,9 @@ if __name__ == '__main__':
 
     print("\n--- Task 4: Demonstrate HTTP Methods ---")
     scraper.demonstrate_http_methods()
+
+    print("\n--- Task 5: SSL Certificate Verification ---")
+    scraper.check_ssl_certificate()
+
+    print("\n--- Task 5: Disabling SSL Verification ---")
+    scraper.disable_ssl_verification()
