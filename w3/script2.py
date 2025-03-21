@@ -23,6 +23,9 @@ print(f'quotes: {quotes}')
 next_page_link = url + soup.find('li', attrs={'class': 'next'}).find('a').get('href')
 print(f'\n\nnext page link: {next_page_link}')
 
+#I know this could be done more easily, but very often,
+# class names are used for styling purposes across multiple components,
+# so I thought this would be a better practice.
 
 def get_tags(quote_elem: bs4.element.Tag):
     return list(map(lambda x: x.get_text(), quote_elem.find_all('a', attrs={'class': 'tag'})))
