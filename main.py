@@ -1,127 +1,155 @@
-import requests
-import ssl
-import socket
 from bs4 import BeautifulSoup
-from urllib3.exceptions import InsecureRequestWarning
+import requests
 
-requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
+html_doc = """ 
+<html> 
+<head><title>Complex Page</title></head> 
+<body> 
+    <div id='top-header' class='header'> 
+        <h1>Main Heading</h1> 
+        <p class='tagline'>Welcome to the test page.</p> 
+    </div> 
+    <div id='navigation'> 
+        <ul class='nav-menu'> 
+            <li id='nav-home' class='menu-item'>Home</li> 
+            <li id='nav-about' class='menu-item'>About</li> 
+            <li id='nav-contact' class='menu-item'>Contact</li> 
+        </ul> 
+    </div> 
+    <div class='content'> 
+        <table id='product-table'> 
+            <tr><th>Product</th><th>Price</th><th>Stock</th></tr> 
+            <tr><td>Book A</td><td>$10</td><td>In Stock</td></tr> 
+            <tr><td>Book B</td><td>$15</td><td>Out of Stock</td></tr> 
+        </table> 
+        <div class='sections'> 
+            <h2 id='section-1'>Section 1</h2> 
+            <p class='description'>Details about section 1.</p> 
+            <h2 id='section-2'>Section 2</h2> 
+            <p class='description'>Details about section 2.</p> 
+        </div> 
+    </div> 
+</body> 
+</html> 
+"""
+
+soup = BeautifulSoup(html_doc, 'html.parser')
 
 # Task 1
-def fetch_books_to_scrape():
-    url = "http://books.toscrape.com/"
-    response = requests.get(url)
-    print(f"Status code: {response.status_code}")
-    print("Response headers:")
-    for key, value in response.headers.items():
-        print(f"{key}: {value}")
-    return response
 
+page_title = soup.title.text
+print("title text: ", page_title)
 
 # Task 2
-def extract_book_titles():
-    url = "http://books.toscrape.com/"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    titles = [book.get_text(strip=True) for book in soup.find_all("h3")]
-    print("Book Titles:")
-    for title in titles:
-        print(title)
-    return titles
 
-
-# helper function for Task 3
-def extract_book_titles_from_page(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    return [book.get_text(strip=True) for book in soup.find_all("h3")]
-
+main_heading = soup.find('div', id='top-header').h1.text
+tagline = soup.find('p', class_='tagline').text
+print("main heading: ", main_heading)
+print("tagline: ", tagline)
 
 # Task 3
-def scrape_all_pages():
-    base_url = "http://books.toscrape.com/catalogue/page-{}.html"
-    page = 1
-    all_titles = []
-    while True:
-        url = base_url.format(page)
-        response = requests.get(url)
-        if response.status_code != 200:
-            break
-        print(f"Scraping page {page}...")
-        all_titles.extend(extract_book_titles_from_page(url))
-        page += 1
-    print(f"Total pages scraped: {page - 1}")
-    print(f"Total books found: {len(all_titles)}")
-    print("First 5 Book Titles:")
-    for title in all_titles[:5]:
-        print(title)
-    return all_titles
 
+menu = soup.find('ul', class_='nav-menu')
+menu_items = [li.text for li in menu.find_all('li', class_='menu-item')]
+print("menu items: ", menu_items)
 
 # Task 4
-def demonstrate_http_methods():
-    url = "http://books.toscrape.com/"
-    # GET Request
-    get_response = requests.get(url)
-    print(f"GET Request Status: {get_response.status_code}")
 
-    # HEAD Request
-    head_response = requests.head(url)
-    print(f"HEAD Request Status: {head_response.status_code}")
-    print("HEAD Response Headers:")
-    for key, value in head_response.headers.items():
-        print(f"{key}: {value}")
+table = soup.find('table', id='product-table')
+rows = table.find_all('tr')[1:]
 
-    # POST Request (Demonstration only, as Books to Scrape does not support POST)
-    post_response = requests.post(url, data={"test": "data"})
-    print(f"POST Request Status: {post_response.status_code}")
+products = []
 
-    return {"get": get_response, "head": head_response, "post": post_response}
+for row in rows:
+    columns = row.find_all('td')
+    product = columns[0].text.strip()
+    price = columns[1].text.strip()
+    stock = columns[2].text.strip()
+    products.append({"product name":product, "price": price, "stock status": stock})
+
+for p in products:
+    print(p)
 
 
 # Task 5
-def verify_ssl_certificate(domain):
-    try:
-        context = ssl.create_default_context()
-        with socket.create_connection((domain, 443)) as sock:
-            with context.wrap_socket(sock, server_hostname=domain) as ssock:
-                cert = ssock.getpeercert()
-                print("SSL Certificate Information:")
-                # Only print a few key certificate details
-                print(f"Subject: {dict(cert['subject'][0])}")
-                print(f"Issuer: {dict(cert['issuer'][0])}")
-                print(f"Valid from: {cert['notBefore']}")
-                print(f"Valid until: {cert['notAfter']}")
-                print("SSL Verification: SUCCESS")
-    except Exception as e:
-        print(f"SSL Verification: FAILED - {e}")
+products_new = []
+
+for row in rows:
+    columns = row.find_all('td')
+    product_data = {
+        "product name": columns[0].text.strip(),
+        "price": columns[1].text.strip(),
+        "stock status": columns[2].text.strip()
+    }
+    products_new.append(product_data)
+
+print(products_new)
 
 
-def demonstrate_ssl_verification():
-    domain = "books.toscrape.com"
-    print("Verifying SSL certificate for:", domain)
-    verify_ssl_certificate(domain)
+# Task 6
 
-    print("\nDisabling SSL verification...")
-    try:
-        response = requests.get(f"https://{domain}", verify=False)
-        print(f"Request successful with SSL verification disabled. Status Code: {response.status_code}")
-    except Exception as e:
-        print(f"Request failed with SSL verification disabled: {e}")
+section_div = soup.find('div', class_='sections')
+section_titles = section_div.find_all('h2')
+
+sections = []
+for s in section_titles:
+    description = s.find_next_sibling('p', class_='description')
+    sections.append({"title": s.text.strip(), "description": description.text.strip()})
+
+print(sections)
 
 
-if __name__ == "__main__":
-    print("=== Task 1: Fetch Books to Scrape ===")
-    fetch_books_to_scrape()
+# Task 7
 
-    print("\n=== Task 2: Extract Book Titles ===")
-    extract_book_titles()
+headings = [h2.text.strip() for h2 in section_div.find_all('h2')]
+p_elements = [p.text.strip() for p in section_div.find_all('p')]
 
-    print("\n=== Task 3: Scrape All Pages ===")
-    scrape_all_pages()
+print("Headings: ", headings)
+print("Paragraphs: ", p_elements)
 
-    print("\n=== Task 4: Demonstrate HTTP Methods ===")
-    demonstrate_http_methods()
 
-    print("\n=== Task 5: Verify SSL Certificate ===")
-    demonstrate_ssl_verification()
+# Task 8
+
+section1 = section_div.find('h2', id='section-1').text.strip()
+nav_home = soup.find('li', id='nav-home').text.strip()
+print(section1)
+print(nav_home)
+
+
+# Task 9
+
+desc_ps = [p.text.strip() for p in soup.find_all('p', class_='description')]
+print(desc_ps)
+
+visible_text = soup.get_text(separator=' ', strip=True)
+print(visible_text)
+
+
+# Last part
+
+url = 'http://quotes.toscrape.com'
+response = requests.get(url)
+soup_new = BeautifulSoup(response.text, 'html.parser')
+
+quotes = soup.find_all('div', class_='quote')
+for quote in quotes:
+    text = quote.find('span', class_='text').text
+    author = quote.find('small', class_='author').text
+    print(f"Quote: {text}")
+    print(f"Author: {author}")
+    print('-' * 50)
+
+
+next_button = soup.find('li', class_='next')
+if next_button:
+    next_page_url = next_button.find('a')['href']
+    print(f"Next Page URL: {url}{next_page_url}")
+else:
+    print("No Next Page Found")
+
+
+tags = soup.select('span.tag')
+print("Tags associated with quotes:")
+for tag in tags:
+    print(tag.text)
