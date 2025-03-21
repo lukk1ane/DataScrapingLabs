@@ -53,18 +53,17 @@ def get_book_titles(url):
         books = soup.find_all('h3')
         titles.extend([book.a['title'] for book in books])
         
-        # Find the next button
+       
         next_button = soup.find('li', class_='next')
         if next_button:
             next_url = next_button.find('a')['href']
             print(next_url)
-            # Check if we're still on the first page
             if "catalogue" not in url:
                 url = f"http://books.toscrape.com/{next_url}"
             else:
                 url = f"http://books.toscrape.com/{next_url}"
         else:
-            url = None  # No more pages
+            url = None  
     
     return titles
  
@@ -95,7 +94,7 @@ def post_request():
     print(f"Status Code: {response.status_code}")
     print(f"Response Body: {response.json()}")
 
-# HEAD request
+# HEAD
 def head_request():
     response = requests.head(url)
     print("\nHEAD Request Response:")
