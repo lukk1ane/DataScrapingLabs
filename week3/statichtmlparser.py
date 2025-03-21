@@ -3,7 +3,6 @@ import warnings
 from bs4 import MarkupResemblesLocatorWarning
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
-# 1. Assign the HTML content to a string variable
 html_doc = """
 <!DOCTYPE html>
 <html>
@@ -37,31 +36,31 @@ html_doc = """
 </html>
 """
 
-# 2. Parse the HTML content from the string
+
 soup = BeautifulSoup(html_doc, 'html.parser')
 
-# Task 1: Extract Page Title
+# Task 1
 if soup.head and soup.head.title:
     title = soup.head.title.text
     print(f"Page Title: {title}")
 else:
     print("Page title not found")
 
-# Task 2: Extract Main Heading and Tagline
+# Task 2
 main_heading = soup.find('div', id='top-header').h1.text
 tagline = soup.find('p', class_='tagline').text
 print(f"Main Heading: {main_heading}")
 print(f"Tagline: {tagline}")
 
-# Task 3: Extract Navigation Menu Items
+# Task 3
 nav_items = soup.find('ul', class_='nav-menu').find_all('li', class_='menu-item')
 print("Navigation Menu Items:")
 for item in nav_items:
     print(f"- {item.text}")
 
-# Task 4 & 5: Extract Product Table Data and Store in Dictionary
+# Task 4 & 5
 table = soup.find('table', id='product-table')
-rows = table.find_all('tr')[1:]  # Skip header row
+rows = table.find_all('tr')[1:]  
 products = []
 
 for row in rows:
@@ -77,7 +76,7 @@ print("Products:")
 for product in products:
     print(product)
 
-# Task 6 & 7: Extract Section Titles and Descriptions + Deeply Nested Elements
+# Task 6 & 7
 sections_div = soup.find('div', class_='sections')
 section_headings = sections_div.find_all('h2')
 section_paragraphs = sections_div.find_all('p', class_='description')
@@ -87,19 +86,18 @@ for i, (heading, paragraph) in enumerate(zip(section_headings, section_paragraph
     print(f"Section {i+1}: {heading.text}")
     print(f"Description: {paragraph.text}")
 
-# Task 8: Extract Elements Using IDs
+# Task 8
 section1_heading = soup.find('h2', id='section-1').text
 nav_home = soup.find('li', id='nav-home').text
 print(f"Section 1 Heading: {section1_heading}")
 print(f"Nav Home Text: {nav_home}")
 
-# Task 9: Extract Specific Paragraphs
+# Task 9
 description_paragraphs = soup.find_all('p', class_='description')
 print("Description Paragraphs:")
 for p in description_paragraphs:
     print(f"- {p.text}")
 
-# All visible text
 visible_text = soup.get_text(separator='\n', strip=True)
 print("All Visible Text:")
 print(visible_text)
