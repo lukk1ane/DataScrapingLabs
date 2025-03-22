@@ -1,0 +1,16 @@
+Alice scored 85 in the test.
+Bob managed to get 90 marks.
+Charlie had a score of 78.
+David scored 88 and Emily scored 92.
+Fiona got 79, while George scored 95.
+
+Car Data:
+Toyota, Corolla, 2015, 75000
+Ford, Focus, 2018, 54000
+BMW, X5, 2020, 30000
+Mercedes, C-Class, 2017, 62000
+Tesla, Model S, 2021, 12000
+Honda, Civic, 2016, 80000
+
+Random Numbers:
+23 45 67 89 12 34 56 78 90 11 22 33 44 55 66 77 88 99 10 20
