@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import ssl
 import socket
 from OpenSSL import SSL
 from pprint import pprint
@@ -11,9 +10,9 @@ def get_request(url):
     res = requests.get(url)
     return res
 res = get_request(url)
-# print(res.status_code)
-# for key, value in res.headers.items():
-#     print(f"{key}: {value}")
+print(res.status_code)
+for key, value in res.headers.items():
+    print(f"{key}: {value}")
 # EXERCISE 2 --------------------------------
 
 def get_book_titles(url):
@@ -32,10 +31,10 @@ def get_book_titles(url):
 
 
 
-# book_titles = get_book_titles(url)
+book_titles = get_book_titles(url)
     
-# for idx, title in enumerate(book_titles, start=1):
-#     print(f"{idx}. {title}")
+for idx, title in enumerate(book_titles, start=1):
+    print(f"{idx}. {title}")
 
 
 # EXERCISE 3 -------------------------------
