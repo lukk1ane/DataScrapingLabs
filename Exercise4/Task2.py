@@ -7,22 +7,17 @@ url = "http://books.toscrape.com/"
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
-# Convert to lxml for XPath support
 tree = html.fromstring(response.content)
 
-# Extract data using different navigation methods
 books_data = []
 
-# Parent-child navigation with BeautifulSoup
 for article in soup.find_all('article', class_='product_pod'):
     # Navigate from parent (article) to children
     title = article.h3.a['title']
     price = article.find('p', class_='price_color').text
     
-    # Sibling navigation
     rating = article.p['class'][1]  # <p> with rating is sibling to <h3> and price <p>
     
-    # XPath with lxml
     book_xpath = tree.xpath(f'//article[.//a[@title="{title}"]]')[0]
     availability = book_xpath.xpath('.//p[@class="instock availability"]/text()')[0].strip()
     
