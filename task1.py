@@ -1,17 +1,18 @@
 import requests
+from bs4 import BeautifulSoup
 
-def main():
-    
-    url = "http://books.toscrape.com/"
-    response = requests.get(url)
-    
-   
-    print(f"Status Code: {response.status_code}")
-    
-    
-    print("\nResponse Headers:")
-    for header, value in response.headers.items():
-        print(f"{header}: {value}")
 
-if __name__ == "__main__":
-    main()
+url = "https://books.toscrape.com/"
+response = requests.get(url)
+
+soup = BeautifulSoup(response.content, 'html.parser')
+
+books = soup.find_all('h3')
+for book in books:
+ 
+    title = book.a['title']
+    
+    parent = book.parent
+    price = parent.find('p', class_='price_color').text
+    
+    print(f"Title: {title} | Price: {price}")
