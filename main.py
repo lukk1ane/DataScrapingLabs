@@ -1,155 +1,82 @@
-from bs4 import BeautifulSoup
+import csv
+from urllib.parse import urljoin
+
 import requests
-
-
-html_doc = """ 
-<html> 
-<head><title>Complex Page</title></head> 
-<body> 
-    <div id='top-header' class='header'> 
-        <h1>Main Heading</h1> 
-        <p class='tagline'>Welcome to the test page.</p> 
-    </div> 
-    <div id='navigation'> 
-        <ul class='nav-menu'> 
-            <li id='nav-home' class='menu-item'>Home</li> 
-            <li id='nav-about' class='menu-item'>About</li> 
-            <li id='nav-contact' class='menu-item'>Contact</li> 
-        </ul> 
-    </div> 
-    <div class='content'> 
-        <table id='product-table'> 
-            <tr><th>Product</th><th>Price</th><th>Stock</th></tr> 
-            <tr><td>Book A</td><td>$10</td><td>In Stock</td></tr> 
-            <tr><td>Book B</td><td>$15</td><td>Out of Stock</td></tr> 
-        </table> 
-        <div class='sections'> 
-            <h2 id='section-1'>Section 1</h2> 
-            <p class='description'>Details about section 1.</p> 
-            <h2 id='section-2'>Section 2</h2> 
-            <p class='description'>Details about section 2.</p> 
-        </div> 
-    </div> 
-</body> 
-</html> 
-"""
-
-soup = BeautifulSoup(html_doc, 'html.parser')
+from bs4 import BeautifulSoup
 
 # Task 1
 
-page_title = soup.title.text
-print("title text: ", page_title)
+url = "https://books.toscrape.com/"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+h3_tags = soup.find_all('h3')
+
+for h3 in h3_tags:
+    title = h3.a['title']
+
+    parent = h3.parent
+    price_tag = parent.find('p', class_='price_color')
+
+    if price_tag:
+        price = price_tag.text
+        print(f"title: {title} | price: {price}")
 
 # Task 2
 
-main_heading = soup.find('div', id='top-header').h1.text
-tagline = soup.find('p', class_='tagline').text
-print("main heading: ", main_heading)
-print("tagline: ", tagline)
+books_container = soup.find_all('article', class_='product_pod')
 
-# Task 3
+books_data = []
 
-menu = soup.find('ul', class_='nav-menu')
-menu_items = [li.text for li in menu.find_all('li', class_='menu-item')]
-print("menu items: ", menu_items)
+for book in books_container:
+    title = book.h3.a['title'].strip()
 
-# Task 4
+    price = book.find('p', class_='price_color').text.strip()
 
-table = soup.find('table', id='product-table')
-rows = table.find_all('tr')[1:]
+    relative_url = book.h3.a['href']
+    full_url = urljoin(url, relative_url)
 
-products = []
+    product_resp = requests.get(full_url)
+    product_soup = BeautifulSoup(product_resp.text, 'html.parser')
 
-for row in rows:
-    columns = row.find_all('td')
-    product = columns[0].text.strip()
-    price = columns[1].text.strip()
-    stock = columns[2].text.strip()
-    products.append({"product name":product, "price": price, "stock status": stock})
+    desc_header = product_soup.find('div', id='product_description')
+    if desc_header:
+        desc_p = desc_header.find_next_sibling('p')
+        description = desc_p.text.strip() if desc_p else "No description"
+    else:
+        description = "No description"
 
-for p in products:
-    print(p)
+    availability_tag = product_soup.find('th', string='Availability')
+    if availability_tag:
+        availability = availability_tag.find_next_sibling('td').text.strip()
+    else:
+        availability = "Not available"
 
+    rating_tag = book.find('p', class_='star-rating')
+    if rating_tag and 'class' in rating_tag.attrs:
+        classes = rating_tag['class']
+        rating = [c for c in classes if c != 'star-rating'][0]
+    else:
+        rating = "No rating"
 
-# Task 5
-products_new = []
-
-for row in rows:
-    columns = row.find_all('td')
-    product_data = {
-        "product name": columns[0].text.strip(),
-        "price": columns[1].text.strip(),
-        "stock status": columns[2].text.strip()
-    }
-    products_new.append(product_data)
-
-print(products_new)
-
-
-# Task 6
-
-section_div = soup.find('div', class_='sections')
-section_titles = section_div.find_all('h2')
-
-sections = []
-for s in section_titles:
-    description = s.find_next_sibling('p', class_='description')
-    sections.append({"title": s.text.strip(), "description": description.text.strip()})
-
-print(sections)
+    books_data.append({
+        'Title': title,
+        'Price': price,
+        'URL': full_url,
+        'Description': description,
+        'Availability': availability,
+        'Rating': rating
+    })
 
 
-# Task 7
+csv_filename = 'books_data.csv'
+with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.DictWriter(file, fieldnames=books_data[0].keys())
+    writer.writeheader()
+    writer.writerows(books_data)
 
-headings = [h2.text.strip() for h2 in section_div.find_all('h2')]
-p_elements = [p.text.strip() for p in section_div.find_all('p')]
+for book in books_data:
+    print("\n--- Book ---")
+    for key, value in book.items():
+        print(f"{key}: {value}")
 
-print("Headings: ", headings)
-print("Paragraphs: ", p_elements)
-
-
-# Task 8
-
-section1 = section_div.find('h2', id='section-1').text.strip()
-nav_home = soup.find('li', id='nav-home').text.strip()
-print(section1)
-print(nav_home)
-
-
-# Task 9
-
-desc_ps = [p.text.strip() for p in soup.find_all('p', class_='description')]
-print(desc_ps)
-
-visible_text = soup.get_text(separator=' ', strip=True)
-print(visible_text)
-
-
-# Last part
-
-url = 'http://quotes.toscrape.com'
-response = requests.get(url)
-soup_new = BeautifulSoup(response.text, 'html.parser')
-
-quotes = soup.find_all('div', class_='quote')
-for quote in quotes:
-    text = quote.find('span', class_='text').text
-    author = quote.find('small', class_='author').text
-    print(f"Quote: {text}")
-    print(f"Author: {author}")
-    print('-' * 50)
-
-
-next_button = soup.find('li', class_='next')
-if next_button:
-    next_page_url = next_button.find('a')['href']
-    print(f"Next Page URL: {url}{next_page_url}")
-else:
-    print("No Next Page Found")
-
-
-tags = soup.select('span.tag')
-print("Tags associated with quotes:")
-for tag in tags:
-    print(tag.text)
