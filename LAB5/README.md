@@ -1,0 +1,1 @@
+# I had installed selenium webdriver on linux, so maybe you need to change path or part of code to use selenium on windows or MAC
