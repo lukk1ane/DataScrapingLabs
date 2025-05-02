@@ -1,4 +1,4 @@
-# Selenium Automation Assignment
+# Selenium Automation
 
 ## Setup
 
