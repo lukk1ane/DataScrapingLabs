@@ -1,0 +1,18 @@
+﻿YouTube Comment Scraper
+A simple Python tool that uses Selenium to scrape comments from YouTube videos.
+Features
+
+Extracts comment author names, text content, and like counts
+Saves collected data to CSV format for easy analysis
+
+Requirements
+
+Python 3.6 or higher
+Firefox browser installed
+Selenium WebDriver
+geckodriver (Firefox WebDriver executable)
+
+Limitations
+YouTube may change its page structure, requiring selector updates
+Scraping too many comments quickly might trigger rate limiting
+Comments with special formatting may not extract perfectly
