@@ -8,6 +8,31 @@
 from itemadapter import ItemAdapter
 
 
-class BookscrapyPipeline:
+class BookscrapyPipeline:   
+
+    def __init__(self):
+        self.items = []
+
     def process_item(self, item, spider):
+     
+        item['title'] = item['title'].strip()
+
+        item['price'] = float(item['price'].replace('£', '').strip())
+
+        self.items.append(item)
         return item
+
+    def close_spider(self, spider):
+   
+        sorted_items = sorted(self.items, key=lambda x: x['price'])
+
+    
+        import json
+        with open('books.json', 'w', encoding='utf-8') as f:
+            json.dump([dict(item) for item in sorted_items], f, indent=2)
+
+        import csv
+        with open('books.csv', 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=['title', 'price'])
+            writer.writeheader()
+            writer.writerows(sorted_items)
