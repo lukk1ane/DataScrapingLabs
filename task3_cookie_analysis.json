@@ -1,0 +1,40 @@
+{
+  "total_cookies": 4,
+  "cookies": [
+    {
+      "name": "AWSALB",
+      "value": "7CVIFTSXzFcyKy7ffrdE6bcEX6GaEGFYBXugPIhl5W8wUPRgtQi6aFUWs0YC1Zy3nqzqd11GUu/EU3t3eYTCYnhr//8dAxkR1asHbiE20YobpN+l0tJ4dPey1CVN",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "secure": false,
+      "expires": null
+    },
+    {
+      "name": "AWSALBCORS",
+      "value": "7CVIFTSXzFcyKy7ffrdE6bcEX6GaEGFYBXugPIhl5W8wUPRgtQi6aFUWs0YC1Zy3nqzqd11GUu/EU3t3eYTCYnhr//8dAxkR1asHbiE20YobpN+l0tJ4dPey1CVN",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "secure": false,
+      "expires": null
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6Im90WDNpY2FGMWlJNkZBeVNEUnBuZkE9PSIsInZhbHVlIjoibWRla043SWVIQ08zcm8xRy9XSWs4WGlZcmpMQVYwMDdVVkNOREd1bmZ1MU1mRXFKS0c4Nmlrd1hKYjBXbzgxdnYrbWZaM2lQbW5aTHFNYlo2RUk2NVR1MEE1ZjVLUUt5VHlKc3M3RzZWbGZLVW9DSTh0M2ErRkdleXJaRVNwMUgiLCJtYWMiOiI5NTZkNjE5YmYxOTQxZmNiMTJmMjhhNzNlMzljMzIzOTE1ODI2MWI5ZGVhMGIyZTlkZWUzYTk2MjU4MmVkODQ3IiwidGFnIjoiIn0%3D",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "secure": false,
+      "expires": null
+    },
+    {
+      "name": "scrapingcoursecom_session",
+      "value": "eyJpdiI6Im9PWHVMWm5lTC9FaUY4NzZmejQxWWc9PSIsInZhbHVlIjoiV2o4ci9lMXdhRUVJb3hjK2V2dnBKVW1zODltNXBxMzJRREhPTzR2TTlpK043M01OcExiRVg4eXArTFhKU1ZNQ2pmY0pEWlVJcU5hWnRkUVgySHpVVktpcDlZaFhYcnQ3bVNGbC9VbGpmbnhjK2YzUStzbnZFYTdSU3IyUTZFVWoiLCJtYWMiOiJiYzg4Nzg5ZThhMjBmNTRhNDdlNmI5ZTc5NmExZWUxM2U0YTQzN2FiMTA5OTBhYmIyMTdmNzY1NTVlNTM2MTcxIiwidGFnIjoiIn0%3D",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "secure": false,
+      "expires": 1748010084
+    }
+  ],
+  "original_access_successful": true,
+  "modified_access_successful": true,
+  "new_session_access_successful": true
+}
