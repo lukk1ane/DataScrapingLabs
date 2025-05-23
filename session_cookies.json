@@ -1,0 +1,22 @@
+{
+  "AWSALB": {
+    "value": "NWET+uhuYHIO6YpkuknO4K4fcX/aBzOE3K5q36vdBRPA3erz2GhDRm9UujO83Lrohi6y2+pnw/jvWudp77CD/dUNH90EiiyWA0sosg3fenbfXPiP0VbB2PhdOtsBIZHKAqBXf50bhb8eepqcNKgJ068wuA3G9VexZCJdsnJ9KVzmDR5OsuFzx1SyKGzCZQ==",
+    "domain": "www.scrapingcourse.com",
+    "path": "/"
+  },
+  "AWSALBCORS": {
+    "value": "NWET+uhuYHIO6YpkuknO4K4fcX/aBzOE3K5q36vdBRPA3erz2GhDRm9UujO83Lrohi6y2+pnw/jvWudp77CD/dUNH90EiiyWA0sosg3fenbfXPiP0VbB2PhdOtsBIZHKAqBXf50bhb8eepqcNKgJ068wuA3G9VexZCJdsnJ9KVzmDR5OsuFzx1SyKGzCZQ==",
+    "domain": "www.scrapingcourse.com",
+    "path": "/"
+  },
+  "XSRF-TOKEN": {
+    "value": "eyJpdiI6IlFDZ0FCc0NBb2l4Z2lEWGo4V3JzSEE9PSIsInZhbHVlIjoiN0M3bTN2ZzRlR1lnM2dER3hsVHNCQ0pMUGtuVTF1M2c2UDVtT1E5STd4UE1ickVRNHUvamZkaklkZkpJeWJMWndRZ0gvWkdsUythSW1pZTdtbkJnS3JjNS93TFJDbEsvb0hQa2FDTmw1ZWJrakJSWm0wc0dCdXhRVFJUWmw5Y24iLCJtYWMiOiI5YTViNTRlY2E1MGY2ZDNiZTNkNmJlMGYwOTMxNDY2N2QwYTIzYTVlZTU3YTMwNTBmNTk1NjI2MWNiZTBmM2FhIiwidGFnIjoiIn0%3D",
+    "domain": "www.scrapingcourse.com",
+    "path": "/"
+  },
+  "scrapingcoursecom_session": {
+    "value": "eyJpdiI6IkEyd1JFYmdObFR4VHN5RmNnMHZ5MHc9PSIsInZhbHVlIjoieExFWkFDRVYyOVorYWEvUi9WdDdHRmU0MXVtb3YvZGlONllUa0FsQUZNSGRCZk1qQWIvNHRidVlKODFTQlZENkRVSmFYdEo5b0RQWUFjamFvMDJ4VzhBdzNGeU91WmtLOEo1MnJpbktRajRvL2dXL0tiN2dNUkNhNWx6bEYvYlEiLCJtYWMiOiI3YTc4MGE3MDM5ZGU0YzQ1YWEwMjY2MGRjMWE1YTQ4N2YwYmM0NDQxZTc5OWM1ZmFiM2FmNDk4N2ZlZmM3NjNhIiwidGFnIjoiIn0%3D",
+    "domain": "www.scrapingcourse.com",
+    "path": "/"
+  }
+}
