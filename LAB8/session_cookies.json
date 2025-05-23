@@ -1,0 +1,30 @@
+{
+  "AWSALB": {
+    "value": "0YnnWh/fxBUMxyAOIR2zBbZlAcHi8C+GrMEr8pL7+y/uEukE+0zdcoHpb/3P4ivlk1Fo1HO4VpWbNNUVkOQhh35HD+WHT9jD8O12/w6fLVqADH7g5nCfIAxJs7jkjRQPzvBG8u08+z2xtPPQ+GB7SuOXIYP8BPEXKG9lAKC3cQ5xMvXotmTVyJxl0fgoow==",
+    "domain": "www.scrapingcourse.com",
+    "path": "/",
+    "secure": false,
+    "expires": 1748604303
+  },
+  "AWSALBCORS": {
+    "value": "0YnnWh/fxBUMxyAOIR2zBbZlAcHi8C+GrMEr8pL7+y/uEukE+0zdcoHpb/3P4ivlk1Fo1HO4VpWbNNUVkOQhh35HD+WHT9jD8O12/w6fLVqADH7g5nCfIAxJs7jkjRQPzvBG8u08+z2xtPPQ+GB7SuOXIYP8BPEXKG9lAKC3cQ5xMvXotmTVyJxl0fgoow==",
+    "domain": "www.scrapingcourse.com",
+    "path": "/",
+    "secure": true,
+    "expires": 1748604303
+  },
+  "XSRF-TOKEN": {
+    "value": "eyJpdiI6Ik16ZnJrM1hhblA3NzgxSUl5dGppRXc9PSIsInZhbHVlIjoiNWM0eXRwc0hVMkxlYWRGa1lGNXJka2RUOFphSFZtVDhJZkwyc1o1b0NKVkpGREV6K0lTcWwyQzNGL2ptTmV5a1lTL3p6VVFHVlhWTmFVU3NCQlQvWTJ4RlJNVmZlRUdqSThaeVVtRW1BUFlLUWE5dHdlU0N4YkFUK1h1K0xGWlYiLCJtYWMiOiI3YTU4M2FmMDU2ZDJmYWIxYWYzNjgxYzI3MDJhMDg4YzhmMTRjN2I2OGFhZjk5MjcyYzc5MThhMmQ5ZjdjNmM4IiwidGFnIjoiIn0%3D",
+    "domain": "www.scrapingcourse.com",
+    "path": "/",
+    "secure": false,
+    "expires": null
+  },
+  "scrapingcoursecom_session": {
+    "value": "eyJpdiI6InhrSmdIa01adExINDI3N0hadTk3UUE9PSIsInZhbHVlIjoiL2ZIaWozYTl5R0RqUlI2N29PL2hSbngvdFBwdHdRbWFFUTcrdWZNU1dVSXQ2YS9WblZ3OVlpMVhPUlFaOGpBek00d05UdkF5c3dhbW12cUZEanBVZ2oyMldzWGJmLzdGMEoyOWluckxQTGQwaFJXc00reTZTNHRVd3JycVZ0UlQiLCJtYWMiOiIxYmU0ZDE0NzM3MGMxYTExMjUzOGZmMjI5ZmIyZjRlYWViODE1ODk4ZDkwM2ExNzcyZmQ3NzY4N2M4OTQ3ZmZlIiwidGFnIjoiIn0%3D",
+    "domain": "www.scrapingcourse.com",
+    "path": "/",
+    "secure": false,
+    "expires": 1748006702
+  }
+}
