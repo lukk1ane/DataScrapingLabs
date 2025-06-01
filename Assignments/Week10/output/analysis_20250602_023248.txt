@@ -1,0 +1,34 @@
+Product Catalog Analysis
+==================================================
+
+Total Products: 80
+
+Price Analysis:
+- Average Price: $815.31
+- Minimum Price: $187.99
+- Maximum Price: $3799.95
+
+Rating Analysis:
+- Average Rating: 4.37
+- Products with Ratings: 76
+
+Top Sellers:
+- Amazon: 80 products
+
+Categories:
+- Gaming laptop: 80 products
+
+Availability Summary:
+- In Stock: 59 products
+- Only 1 left in stock - order soon.: 4 products
+- Only 2 left in stock - order soon.: 3 products
+- Only 8 left in stock - order soon.: 2 products
+- Only 3 left in stock - order soon.: 2 products
+- Only 19 left in stock - order soon.: 2 products
+- Only 5 left in stock - order soon.: 2 products
+- Only 4 left in stock - order soon.: 1 products
+- Only 13 left in stock - order soon.: 1 products
+- Only 17 left in stock - order soon.: 1 products
+- Only 12 left in stock - order soon.: 1 products
+- Only 14 left in stock - order soon.: 1 products
+- Only 9 left in stock - order soon.: 1 products

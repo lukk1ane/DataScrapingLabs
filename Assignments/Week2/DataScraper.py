@@ -7,7 +7,7 @@ import os
 import logging
 from time import sleep
 
-class ECommerceScraper:
+class DataScraper:
     def __init__(self, base_url, output_dir="output"):
         self.base_url = base_url
         self.output_dir = output_dir
@@ -119,8 +119,8 @@ class ECommerceScraper:
         logging.info("Scraping completed.")
 
 
-# Example Usage
+# example Usage
 if __name__ == "__main__":
     base_url = "https://www.newegg.com"
-    scraper = ECommerceScraper(base_url)
+    scraper = DataScraper(base_url)
     scraper.run(search_query="laptop")

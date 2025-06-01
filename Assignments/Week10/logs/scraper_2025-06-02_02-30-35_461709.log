@@ -1,0 +1,9 @@
+2025-06-02 02:30:37.098 | INFO     | __main__:scrape_products:21 - Starting scraping for search term: gaming laptop
+2025-06-02 02:30:41.405 | INFO     | __main__:scrape_products:29 - Scraping page 1
+2025-06-02 02:31:11.841 | INFO     | __main__:scrape_products:49 - No more pages available
+2025-06-02 02:31:13.929 | INFO     | __main__:scrape_products:53 - Saving collected data...
+2025-06-02 02:31:13.930 | ERROR    | data_manager:save_to_csv:42 - Error saving CSV file: list index out of range
+2025-06-02 02:31:13.931 | INFO     | data_manager:save_to_json:54 - Saved 0 products to ../output\products_20250602_023113.json
+2025-06-02 02:31:13.942 | INFO     | __main__:scrape_products:58 - Generating analysis...
+2025-06-02 02:31:13.943 | ERROR    | data_manager:save_analysis:122 - Error saving analysis: 'total_products'
+2025-06-02 02:31:13.943 | INFO     | __main__:scrape_products:62 - Scraping completed. Total products collected: 0
