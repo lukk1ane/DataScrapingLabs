@@ -8,17 +8,14 @@ import csv
 import logging
 from urllib.parse import urljoin
 
-# --- Configuration ---
 BASE_URL = "https://books.toscrape.com/"
 CSV_FILE = "advanced_books_scraper_results.csv"
 BOOKS_TO_SCRAPE = 20
 MINIMUM_CATEGORIES = 3
 MINIMUM_STAR_RATING = 4
 
-# Setting up logging for clear output
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# 1. User-Agent Rotation: A list of diverse and common User-Agents
 USER_AGENTS = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
@@ -27,10 +24,8 @@ USER_AGENTS = [
     'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1'
 ]
 
-# Helper mapping for converting star rating text to a number
 STAR_RATING_MAP = {'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
 
-# --- Anti-Detection and Helper Functions ---
 
 def setup_session():
     """
@@ -49,20 +44,10 @@ def setup_session():
     adapter = HTTPAdapter(max_retries=retries)
     session.mount("http://", adapter)
     session.mount("https://", adapter)
-    
-    # Set realistic default headers for the session
     session.headers.update({
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
-        
-        # --- FIX ---
-        # We are removing the 'Accept-Encoding' header.
-        # The server was sending back compressed (gzipped) data, which requests was failing
-        # to decompress automatically in your environment. By removing this header,
-        # we are telling the server we *cannot* handle compression, forcing it
-        # to send us plain, uncompressed HTML.
-        # 'Accept-Encoding': 'gzip, deflate, br', # <--- THIS LINE IS THE PROBLEM
-        # --- END FIX ---
+
         
         'Connection': 'keep-alive',
     })
@@ -70,23 +55,18 @@ def setup_session():
     return session
 
 def get_random_user_agent():
-    """Returns a random User-Agent to rotate identity."""
     return random.choice(USER_AGENTS)
 
 def navigation_delay():
-    """2. Smart Delays: Simulates human delay for navigating between pages (1-3s)."""
     delay = random.uniform(1, 3)
     time.sleep(delay)
 
 def reading_delay():
-    """2. Smart Delays: Simulates human delay for 'reading' a book page (3-6s)."""
     delay = random.uniform(3, 6)
     time.sleep(delay)
 
 def get_page_content(session, url, referer=None):
-    """
-    Fetches and parses page content, rotating User-Agent and setting Referer for each request.
-    """
+
     headers = session.headers.copy()
     headers['User-Agent'] = get_random_user_agent()
     if referer:
@@ -97,39 +77,26 @@ def get_page_content(session, url, referer=None):
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
 
         return BeautifulSoup(response.text, 'html.parser')
-        # --- END FIX ---
+
 
     except requests.exceptions.RequestException as e:
         logging.error(f"Failed to fetch {url}: {e}")
         return None
 
-# --- Scraping Logic ---
-
 def get_category_urls(session, base_url):
-    """
-    4. Human-like Navigation: Starts by finding all categories and shuffling them
-    to mimic non-linear browsing behavior.
-    """
+
     logging.info("Fetching category URLs from the homepage...")
     soup = get_page_content(session, base_url)
     if not soup:
         return []
 
-    # --- DEBUGGING STEP: Save the HTML to a file ---
     try:
         with open("debug_homepage.html", "w", encoding="utf-8") as f:
             f.write(soup.prettify())
         logging.info("Saved the received HTML to debug_homepage.html for inspection.")
     except Exception as e:
         logging.error(f"Could not write debug file: {e}")
-    # --- END DEBUGGING STEP ---
 
-    # --- FIX: A more specific and robust selector ---
-    # The original selector was fine, but let's make it more specific
-    # by targeting the class of the outer <ul> and using child combinators (>)
-    # to be more resilient to potential minor HTML structure changes.
-    category_links = soup.select('div.side_categories > ul.nav-list > li > ul > li > a')
-    # --- END FIX ---
     
     if not category_links:
         logging.warning("The CSS selector did not find any category links in the received HTML.")
@@ -141,7 +108,6 @@ def get_category_urls(session, base_url):
     return urls
 
 def parse_book_page(soup, category_name):
-    """Extracts all required book details from its individual page."""
     try:
         title = soup.find('h1').text.strip()
         price = soup.select_one('p.price_color').text.strip()
@@ -167,7 +133,6 @@ def parse_book_page(soup, category_name):
         return None
 
 def scrape():
-    """Main function to orchestrate the scraping process."""
     session = setup_session()
     all_books_data = []
     scraped_categories = set()
@@ -231,7 +196,6 @@ def scrape():
     return all_books_data
 
 def save_to_csv(data, filename):
-    """Saves the collected data to a CSV file with proper validation."""
     if not data:
         logging.warning("No data was collected to save.")
         return
@@ -251,7 +215,6 @@ def save_to_csv(data, filename):
     except IOError as e:
         logging.error(f"Error writing to file {filename}: {e}")
 
-# --- Main Execution ---
 if __name__ == "__main__":
     scraped_data = scrape()
     if scraped_data:
